@@ -216,7 +216,11 @@ dsBridge.call("callProgress", function (value) {
 
 DSBridge已经实现了 Javascript的弹出框函数(alert/confirm/prompt)，这些对话框按钮、标签文字默认都是中文的，如果你想自定义这些文本可以参考 `customJavascriptDialogLabelTitles` API，如果你不想使用DSBridge实现的对话框，你可以通过设置`DSUIDelegate` 属性（是WKUIDelegate的代理属性）完全自定义。
 
-另外注意，DSBridge实现的弹出框都是模态的，这会阻塞UI线程，如果你需要非模态的对话框，请参考`disableJavascriptDialogBlock` API.
+默认弹窗使用 `UIAlertController`，从 WebView 自己所在的窗口展示，支持 UIScene。JavaScript 会等待用户操作，但不会阻塞 UIKit 主线程；如果需要立即返回，可使用 `disableJavascriptDialogBlock`。
+
+WebView 未加入窗口、窗口无法展示弹窗或已有其他弹窗时，会直接结束本次请求。WebView 离开窗口时，会取消其待处理的默认弹窗。取消 confirm 返回 `false`，取消 prompt 保留原来的空字符串行为。自定义弹窗继续使用 `DSUIDelegate`，每个 WebKit 回调最多执行一次；`_dsbridge=` 同步桥接协议保持不变。
+
+回归测试说明见 [Tests/README.md](Tests/README.md)。
 
 
 
@@ -302,7 +306,7 @@ dsBridge.call("echo.asyn",{msg:" I am echoAsyn call",tag:2},function (ret) {
 
 ##### `disableJavascriptDialogBlock:(bool) disable`
 
-**小心使用**. 如果你再javascript中调用弹窗函数(`alert`,` confirm`, 或 `prompt`)， 那么APP将会挂起，因为这些弹窗都是**模态**的，会阻塞APP主线程，此时javascript执行流也会阻塞。如果你想避免阻塞，可以通过此API禁止，禁止后，一旦 javascript中调用了这些弹窗函数，APP将弹出**非模态**对话框，并立即返回，(  `confirm` 会返回 `true`,  `prompt` 返回空字符串)。
+默认情况下，JavaScript 会等待用户操作 `alert`、`confirm` 或 `prompt`。传入 `true` 后，弹窗仍会展示，但立即返回：`confirm` 返回 `true`，`prompt` 返回 `null`。后续点击不会再次触发 WebKit 回调，使用 `DSUIDelegate` 自定义弹窗时也一样。
 
 如:
 

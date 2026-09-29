@@ -1,0 +1,570 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04C70163C3D5319B5E3E07D4 /* InternalApis.m in Sources */ = {isa = PBXBuildFile; fileRef = E66FDD397AF4EE9AABD4D522 /* InternalApis.m */; };
+		0928B74AA4C3B40E3C9A130F /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DF322286D0A502ABDAE958 /* WebKit.framework */; };
+		16AD339E0040474E5721C9C0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FC912C3A31123D164725E9 /* WebKit.framework */; };
+		1FAD9309782489DF2F62743A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E20C0B09680E5B9A049BA5CF /* UIKit.framework */; };
+		3906DA1C75EE17A55C288D27 /* Host.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D34F79C05953AE437FB03B2 /* Host.m */; };
+		41975F014EC9F259553C2054 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD4117C8D76AC819E697365B /* WebKit.framework */; };
+		4FDCBD3CB2F5DE8915262FF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7120526CE8BC322CB34501F5 /* Foundation.framework */; };
+		5C39CF22F3A2DCCC338E70A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6844C9E7907D94FC502D6D /* UIKit.framework */; };
+		608626E91AA3906DECC01B44 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7120526CE8BC322CB34501F5 /* Foundation.framework */; };
+		8B5D8BF9E847E1A5AC19A7C8 /* JSBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A358C6DD5E2411A7E8B78B8C /* JSBUtil.m */; };
+		8C701B0A382B11E3424B122D /* DialogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DE52A519FD22E36CB7FD127 /* DialogTests.m */; };
+		AC1878A00739B473E2675DE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9142323804457E2DACA08E20 /* UIKit.framework */; };
+		C2CA30DEAEF9E3D0E497153E /* DSCallInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 577914ACA994CE6A7F941F2D /* DSCallInfo.m */; };
+		D60CA9223C2451A21D90B5D6 /* DialogUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7630BBEDF8B7D708BA551699 /* DialogUITests.m */; };
+		F74C862C102E408E57A2B063 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7120526CE8BC322CB34501F5 /* Foundation.framework */; };
+		FE6BB86142B82C2791C56E88 /* DWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E97FB8A55809869FE877501 /* DWKWebView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4317D0839DB67A4FC0E69DA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A3EA0BFA329C111B332B382 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A67CA88888F19E6F01A87623;
+			remoteInfo = DialogHost;
+		};
+		9E4351570335591C69804BE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A3EA0BFA329C111B332B382 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A67CA88888F19E6F01A87623;
+			remoteInfo = DialogHost;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02FD3203F097832C20D29279 /* DialogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DialogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D34F79C05953AE437FB03B2 /* Host.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Host.m; sourceTree = "<group>"; };
+		0DE52A519FD22E36CB7FD127 /* DialogTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DialogTests.m; sourceTree = "<group>"; };
+		290411249D6656625F155658 /* DialogHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DialogHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		577914ACA994CE6A7F941F2D /* DSCallInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DSCallInfo.m; path = ../dsbridge/DSCallInfo.m; sourceTree = "<group>"; };
+		6F6844C9E7907D94FC502D6D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7120526CE8BC322CB34501F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		7630BBEDF8B7D708BA551699 /* DialogUITests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DialogUITests.m; sourceTree = "<group>"; };
+		84FC912C3A31123D164725E9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		9142323804457E2DACA08E20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		9E97FB8A55809869FE877501 /* DWKWebView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DWKWebView.m; path = ../dsbridge/DWKWebView.m; sourceTree = "<group>"; };
+		A358C6DD5E2411A7E8B78B8C /* JSBUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JSBUtil.m; path = ../dsbridge/JSBUtil.m; sourceTree = "<group>"; };
+		AC9D56A0E838E85D40CCA150 /* DialogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DialogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD4117C8D76AC819E697365B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D4DF322286D0A502ABDAE958 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E20C0B09680E5B9A049BA5CF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E66FDD397AF4EE9AABD4D522 /* InternalApis.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = InternalApis.m; path = ../dsbridge/InternalApis.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0B12FB36F70E78311CFDD224 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F74C862C102E408E57A2B063 /* Foundation.framework in Frameworks */,
+				1FAD9309782489DF2F62743A /* UIKit.framework in Frameworks */,
+				0928B74AA4C3B40E3C9A130F /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C4A9E751C9E66EEC1770F91 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				608626E91AA3906DECC01B44 /* Foundation.framework in Frameworks */,
+				5C39CF22F3A2DCCC338E70A5 /* UIKit.framework in Frameworks */,
+				16AD339E0040474E5721C9C0 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9581F99A70334A88086E404D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FDCBD3CB2F5DE8915262FF3 /* Foundation.framework in Frameworks */,
+				AC1878A00739B473E2675DE0 /* UIKit.framework in Frameworks */,
+				41975F014EC9F259553C2054 /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0842F036E46983DAE35C4931 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				290411249D6656625F155658 /* DialogHost.app */,
+				AC9D56A0E838E85D40CCA150 /* DialogTests.xctest */,
+				02FD3203F097832C20D29279 /* DialogUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C228F31850F99275EFBA04A7 = {
+			isa = PBXGroup;
+			children = (
+				0842F036E46983DAE35C4931 /* Products */,
+				F5FB8FAD29555293E4A20796 /* Frameworks */,
+				0D34F79C05953AE437FB03B2 /* Host.m */,
+				577914ACA994CE6A7F941F2D /* DSCallInfo.m */,
+				9E97FB8A55809869FE877501 /* DWKWebView.m */,
+				E66FDD397AF4EE9AABD4D522 /* InternalApis.m */,
+				A358C6DD5E2411A7E8B78B8C /* JSBUtil.m */,
+				0DE52A519FD22E36CB7FD127 /* DialogTests.m */,
+				7630BBEDF8B7D708BA551699 /* DialogUITests.m */,
+			);
+			sourceTree = "<group>";
+		};
+		CDDDB7289394C83249D39A13 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7120526CE8BC322CB34501F5 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		F5FB8FAD29555293E4A20796 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CDDDB7289394C83249D39A13 /* iOS */,
+				6F6844C9E7907D94FC502D6D /* UIKit.framework */,
+				84FC912C3A31123D164725E9 /* WebKit.framework */,
+				E20C0B09680E5B9A049BA5CF /* UIKit.framework */,
+				D4DF322286D0A502ABDAE958 /* WebKit.framework */,
+				9142323804457E2DACA08E20 /* UIKit.framework */,
+				AD4117C8D76AC819E697365B /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		389C1EE59319C956AA2811EB /* DialogTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5415ABCF5E0C2F45B77226A7 /* Build configuration list for PBXNativeTarget "DialogTests" */;
+			buildPhases = (
+				FC7A42847A94471B7563EEC7 /* Sources */,
+				0B12FB36F70E78311CFDD224 /* Frameworks */,
+				E5A723D4EC35D26CF81C6819 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B5445CCC6575D24FFB3F34B7 /* PBXTargetDependency */,
+			);
+			name = DialogTests;
+			productName = DialogTests;
+			productReference = AC9D56A0E838E85D40CCA150 /* DialogTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		656CA535DE0FCD2D76DAAC0D /* DialogUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBDC9F1F915002536B9F3BFA /* Build configuration list for PBXNativeTarget "DialogUITests" */;
+			buildPhases = (
+				CDE2EFB672FF6305D7A9E72D /* Sources */,
+				9581F99A70334A88086E404D /* Frameworks */,
+				91C812E3F16440C91AAE84AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C5DA217A49EEF862ACE4B8E /* PBXTargetDependency */,
+			);
+			name = DialogUITests;
+			productName = DialogUITests;
+			productReference = 02FD3203F097832C20D29279 /* DialogUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		A67CA88888F19E6F01A87623 /* DialogHost */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31260BDEA969AB08E5BB5A16 /* Build configuration list for PBXNativeTarget "DialogHost" */;
+			buildPhases = (
+				67A8A30E6CFC86BBA84E0C35 /* Sources */,
+				2C4A9E751C9E66EEC1770F91 /* Frameworks */,
+				D798AC1A156E977B3E7A0401 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DialogHost;
+			productName = DialogHost;
+			productReference = 290411249D6656625F155658 /* DialogHost.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6A3EA0BFA329C111B332B382 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 7F7FCF28C834DA2843011787 /* Build configuration list for PBXProject "DialogTests" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C228F31850F99275EFBA04A7;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0842F036E46983DAE35C4931 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A67CA88888F19E6F01A87623 /* DialogHost */,
+				389C1EE59319C956AA2811EB /* DialogTests */,
+				656CA535DE0FCD2D76DAAC0D /* DialogUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		91C812E3F16440C91AAE84AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D798AC1A156E977B3E7A0401 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5A723D4EC35D26CF81C6819 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67A8A30E6CFC86BBA84E0C35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3906DA1C75EE17A55C288D27 /* Host.m in Sources */,
+				C2CA30DEAEF9E3D0E497153E /* DSCallInfo.m in Sources */,
+				FE6BB86142B82C2791C56E88 /* DWKWebView.m in Sources */,
+				04C70163C3D5319B5E3E07D4 /* InternalApis.m in Sources */,
+				8B5D8BF9E847E1A5AC19A7C8 /* JSBUtil.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CDE2EFB672FF6305D7A9E72D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D60CA9223C2451A21D90B5D6 /* DialogUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC7A42847A94471B7563EEC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C701B0A382B11E3424B122D /* DialogTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C5DA217A49EEF862ACE4B8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DialogHost;
+			target = A67CA88888F19E6F01A87623 /* DialogHost */;
+			targetProxy = 9E4351570335591C69804BE9 /* PBXContainerItemProxy */;
+		};
+		B5445CCC6575D24FFB3F34B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DialogHost;
+			target = A67CA88888F19E6F01A87623 /* DialogHost */;
+			targetProxy = 4317D0839DB67A4FC0E69DA2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		29CD9E784CF6613AE8172A7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../dsbridge";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiachufang.dsbridge.DialogUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DialogHost;
+			};
+			name = Debug;
+		};
+		38598ED7CB06B3BC3C223BE4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../dsbridge";
+				INFOPLIST_FILE = "Host-Info.plist";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiachufang.dsbridge.DialogHost;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		48BE23E06848D35C13D3E7C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		52125312B059EED478DF9937 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../dsbridge";
+				INFOPLIST_FILE = "Host-Info.plist";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiachufang.dsbridge.DialogHost;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		968127DBD6139E141032584D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../dsbridge";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiachufang.dsbridge.DialogUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DialogHost;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		969C63FB9391D3D17024C4E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		9EC29B09A351C281BBDD59D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../dsbridge";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiachufang.dsbridge.DialogTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DialogHost.app/DialogHost";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C8A3C0930E5A7A0E3FE98FB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGNING_ALLOWED = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../dsbridge";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiachufang.dsbridge.DialogTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DialogHost.app/DialogHost";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		31260BDEA969AB08E5BB5A16 /* Build configuration list for PBXNativeTarget "DialogHost" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52125312B059EED478DF9937 /* Release */,
+				38598ED7CB06B3BC3C223BE4 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5415ABCF5E0C2F45B77226A7 /* Build configuration list for PBXNativeTarget "DialogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EC29B09A351C281BBDD59D0 /* Release */,
+				C8A3C0930E5A7A0E3FE98FB7 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7F7FCF28C834DA2843011787 /* Build configuration list for PBXProject "DialogTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48BE23E06848D35C13D3E7C1 /* Debug */,
+				969C63FB9391D3D17024C4E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBDC9F1F915002536B9F3BFA /* Build configuration list for PBXNativeTarget "DialogUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				968127DBD6139E141032584D /* Release */,
+				29CD9E784CF6613AE8172A7D /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6A3EA0BFA329C111B332B382 /* Project object */;
+}

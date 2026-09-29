@@ -233,7 +233,11 @@ For the complete sample code, please refer to the demo project.
 
 For Javascript popup box functions (alert/confirm/prompt), DSBridge has implemented them  all  by default. the default dialog label text language is Chinese, you can custom the text by calling `customJavascriptDialogLabelTitles`.  If you still want to implement them by yourself , set the `DSUIDelegate`  property which is a proxy of `WKUIDelegate`. 
 
-Note That the default dialog box  implemented by DSBridge is modal. This will block the UI thread. If you need modeless, please refer to `disableJavascriptDialogBlock`.
+The default dialogs use `UIAlertController` in the web view's own window, including in UIScene applications. JavaScript waits for the answer; UIKit remains responsive. Use `disableJavascriptDialogBlock` to return immediately while still displaying the dialog.
+
+If the web view is detached, its window cannot present, or another alert is already visible, the request completes without presenting another dialog. Removing the web view cancels its pending default dialog. Cancellation returns `false` for confirm and an empty string for prompt (the existing DSBridge behavior). Custom dialogs still use `DSUIDelegate`; each WebKit completion is delivered at most once. The `_dsbridge=` prompt transport is unchanged.
+
+See [Tests/README.md](Tests/README.md) for the scene-based regression tests.
 
 
 
@@ -319,7 +323,7 @@ Example:
 
 ##### `disableJavascriptDialogBlock:(bool) disable`
 
-BE CAREFUL to use. if you call any of the javascript popup box functions (`alert`,` confirm`, and `prompt`), the app will hang, and the javascript execution flow will be blocked. if you don't want to block the javascript execution flow, call this method, the  popup box functions will return  immediately(  `confirm` return `true`, and the `prompt` return empty string).
+By default, JavaScript waits for the user to answer `alert`, `confirm`, or `prompt`. Passing `true` returns immediately while displaying the dialog: `confirm` returns `true`, and `prompt` returns `null`. Later selections do not invoke the WebKit completion again, including when using `DSUIDelegate`.
 
 Example:
 

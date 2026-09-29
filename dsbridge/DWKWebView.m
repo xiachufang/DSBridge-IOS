@@ -4,20 +4,45 @@
 #import "InternalApis.h"
 #import <objc/message.h>
 
+// Each request owns its completion, including requests forwarded to DSUIDelegate.
+// Releasing a dismissed dialog also resolves a still-pending WebKit callback.
+@interface DSJavaScriptDialogCompletion : NSObject
+@property (nonatomic, copy) void (^handler)(id);
+@property (nonatomic, strong) id cancellationResult;
+- (void)finishWithResult:(id)result;
+@end
+
+@implementation DSJavaScriptDialogCompletion
+- (void)finishWithResult:(id)result {
+    void (^handler)(id);
+    @synchronized (self) {
+        handler = self.handler;
+        self.handler = nil;
+    }
+    if (handler) {
+        handler(result);
+    }
+}
+
+- (void)dealloc {
+    if (_handler) {
+        _handler(_cancellationResult);
+    }
+}
+@end
+
 @implementation DWKWebView
 {
-    void (^alertHandler)(void);
-    void (^confirmHandler)(BOOL);
-    void (^promptHandler)(NSString *);
     void(^javascriptCloseWindowListener)(void);
-    int dialogType;
     int callId;
     bool jsDialogBlock;
     NSMutableDictionary<NSString *,id> *javaScriptNamespaceInterfaces;
     NSMutableDictionary *handerMap;
     NSMutableArray<DSCallInfo *> * callInfoList;
     NSDictionary<NSString*,NSString*> *dialogTextDic;
-    UITextField *txtName;
+    __weak UIAlertController *javascriptDialog;
+    __weak DSJavaScriptDialogCompletion *javascriptDialogCompletion;
+    __weak UIWindow *javascriptDialogWindow;
     UInt64 lastCallTime ;
     NSString *jsCache;
     bool isPending;
@@ -27,12 +52,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration
 {
-    txtName=nil;
-    dialogType=0;
     callId=0;
-    alertHandler=nil;
-    confirmHandler=nil;
-    promptHandler=nil;
     jsDialogBlock=true;
     callInfoList=[NSMutableArray array];
     javaScriptNamespaceInterfaces=[NSMutableDictionary dictionary];
@@ -79,35 +99,36 @@ completionHandler:(void (^)(NSString * _Nullable result))completionHandler
         completionHandler(result);
         
     }else {
-        if(!jsDialogBlock){
-            completionHandler(nil);
+        DSJavaScriptDialogCompletion *completion = [DSJavaScriptDialogCompletion new];
+        // Preserve the existing empty-string result for a cancelled blocking prompt.
+        completion.cancellationResult = @"";
+        completion.handler = ^(id result) { completionHandler(result); };
+        if (!jsDialogBlock) {
+            [completion finishWithResult:nil];
         }
-        if(self.DSUIDelegate && [self.DSUIDelegate respondsToSelector:
-                                 @selector(webView:runJavaScriptTextInputPanelWithPrompt
-                                           :defaultText:initiatedByFrame
-                                           :completionHandler:)])
-        {
-            return [self.DSUIDelegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt
-                                  defaultText:defaultText
-                             initiatedByFrame:frame
-                            completionHandler:completionHandler];
-        }else{
-            dialogType=3;
-            if(jsDialogBlock){
-                promptHandler=completionHandler;
-            }
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:prompt
-                                  message:@""
-                                  delegate:self
-                                  cancelButtonTitle:dialogTextDic[@"promptCancelBtn"]?dialogTextDic[@"promptCancelBtn"]:@"取消"
-                                  otherButtonTitles:dialogTextDic[@"promptOkBtn"]?dialogTextDic[@"promptOkBtn"]:@"确定",
-                                  nil];
-            [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-            txtName = [alert textFieldAtIndex:0];
-            txtName.text=defaultText;
-            [alert show];
+        id<WKUIDelegate> delegate = self.DSUIDelegate;
+        if ([delegate respondsToSelector:@selector(webView:runJavaScriptTextInputPanelWithPrompt:defaultText:initiatedByFrame:completionHandler:)]) {
+            [delegate webView:webView runJavaScriptTextInputPanelWithPrompt:prompt
+                  defaultText:defaultText initiatedByFrame:frame completionHandler:^(NSString *result) {
+                [completion finishWithResult:result];
+            }];
+            return;
         }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:prompt message:@""
+                                                               preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.text = defaultText;
+        }];
+        [alert addAction:[UIAlertAction actionWithTitle:dialogTextDic[@"promptCancelBtn"] ?: @"取消"
+                                                 style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [completion finishWithResult:@""];
+        }]];
+        __weak UIAlertController *weakAlert = alert;
+        [alert addAction:[UIAlertAction actionWithTitle:dialogTextDic[@"promptOkBtn"] ?: @"确定"
+                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [completion finishWithResult:weakAlert.textFields.firstObject.text ?: @""];
+        }]];
+        [self presentJavascriptDialog:alert completion:completion];
     }
 }
 
@@ -115,55 +136,97 @@ completionHandler:(void (^)(NSString * _Nullable result))completionHandler
 initiatedByFrame:(WKFrameInfo *)frame
 completionHandler:(void (^)(void))completionHandler
 {
-    if(!jsDialogBlock){
-        completionHandler();
+    DSJavaScriptDialogCompletion *completion = [DSJavaScriptDialogCompletion new];
+    completion.handler = ^(id result) { completionHandler(); };
+    if (!jsDialogBlock) {
+        [completion finishWithResult:nil];
     }
-    if( self.DSUIDelegate &&  [self.DSUIDelegate respondsToSelector:
-                               @selector(webView:runJavaScriptAlertPanelWithMessage
-                                         :initiatedByFrame:completionHandler:)])
-    {
-        return [self.DSUIDelegate webView:webView runJavaScriptAlertPanelWithMessage:message
-                         initiatedByFrame:frame
-                        completionHandler:completionHandler];
-    }else{
-        dialogType=1;
-        if(jsDialogBlock){
-            alertHandler=completionHandler;
-        }
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:dialogTextDic[@"alertTitle"]?dialogTextDic[@"alertTitle"]:@"提示"
-                                   message:message
-                                  delegate:self
-                         cancelButtonTitle:dialogTextDic[@"alertBtn"]?dialogTextDic[@"alertBtn"]:@"确定"
-                         otherButtonTitles:nil,nil];
-        [alertView show];
+    id<WKUIDelegate> delegate = self.DSUIDelegate;
+    if ([delegate respondsToSelector:@selector(webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:completionHandler:)]) {
+        [delegate webView:webView runJavaScriptAlertPanelWithMessage:message
+        initiatedByFrame:frame completionHandler:^{
+            [completion finishWithResult:nil];
+        }];
+        return;
     }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:dialogTextDic[@"alertTitle"] ?: @"提示"
+                                                                  message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:dialogTextDic[@"alertBtn"] ?: @"确定"
+                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [completion finishWithResult:nil];
+    }]];
+    [self presentJavascriptDialog:alert completion:completion];
 }
 
--(void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message
+- (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message
 initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler
 {
-    if(!jsDialogBlock){
-        completionHandler(YES);
+    DSJavaScriptDialogCompletion *completion = [DSJavaScriptDialogCompletion new];
+    completion.cancellationResult = @NO;
+    completion.handler = ^(id result) { completionHandler([result boolValue]); };
+    if (!jsDialogBlock) {
+        [completion finishWithResult:@YES];
     }
-    if( self.DSUIDelegate&& [self.DSUIDelegate respondsToSelector:
-                            @selector(webView:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:)])
-    {
-        return[self.DSUIDelegate webView:webView runJavaScriptConfirmPanelWithMessage:message
-                        initiatedByFrame:frame
-                       completionHandler:completionHandler];
-    }else{
-        dialogType=2;
-        if(jsDialogBlock){
-            confirmHandler=completionHandler;
+    id<WKUIDelegate> delegate = self.DSUIDelegate;
+    if ([delegate respondsToSelector:@selector(webView:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:)]) {
+        [delegate webView:webView runJavaScriptConfirmPanelWithMessage:message
+        initiatedByFrame:frame completionHandler:^(BOOL result) {
+            [completion finishWithResult:@(result)];
+        }];
+        return;
+    }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:dialogTextDic[@"confirmTitle"] ?: @"提示"
+                                                                  message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:dialogTextDic[@"confirmCancelBtn"] ?: @"取消"
+                                             style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [completion finishWithResult:@NO];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:dialogTextDic[@"confirmOkBtn"] ?: @"确定"
+                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [completion finishWithResult:@YES];
+    }]];
+    [self presentJavascriptDialog:alert completion:completion];
+}
+
+- (void)presentJavascriptDialog:(UIAlertController *)alert completion:(DSJavaScriptDialogCompletion *)completion {
+    // Only use the window containing this web view; never select another scene's key window.
+    UIWindow *window = self.window;
+    UIViewController *presenter = window.rootViewController;
+    while (presenter.presentedViewController) {
+        presenter = presenter.presentedViewController;
+    }
+    BOOL canPresent = window && !window.hidden && presenter &&
+        presenter.isViewLoaded && presenter.view.window == window &&
+        !presenter.isBeingPresented && !presenter.isBeingDismissed &&
+        !presenter.transitionCoordinator &&
+        ![presenter isKindOfClass:[UIAlertController class]] && !javascriptDialog;
+    if (@available(iOS 13.0, *)) {
+        if (window.windowScene &&
+            (window.windowScene.activationState == UISceneActivationStateBackground ||
+             window.windowScene.activationState == UISceneActivationStateUnattached)) {
+            canPresent = NO;
         }
-        UIAlertView *alertView =
-        [[UIAlertView alloc] initWithTitle:dialogTextDic[@"confirmTitle"]?dialogTextDic[@"confirmTitle"]:@"提示"
-                                   message:message
-                                  delegate:self
-                         cancelButtonTitle:dialogTextDic[@"confirmCancelBtn"]?dialogTextDic[@"confirmCancelBtn"]:@"取消"
-                         otherButtonTitles:dialogTextDic[@"confirmOkBtn"]?dialogTextDic[@"confirmOkBtn"]:@"确定", nil];
-        [alertView show];
+    }
+    if (!canPresent) {
+        [completion finishWithResult:completion.cancellationResult];
+        return;
+    }
+    javascriptDialog = alert;
+    javascriptDialogCompletion = completion;
+    javascriptDialogWindow = window;
+    [presenter presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)didMoveToWindow {
+    [super didMoveToWindow];
+    if (javascriptDialog && self.window != javascriptDialogWindow) {
+        UIAlertController *alert = javascriptDialog;
+        DSJavaScriptDialogCompletion *completion = javascriptDialogCompletion;
+        javascriptDialog = nil;
+        javascriptDialogCompletion = nil;
+        javascriptDialogWindow = nil;
+        [completion finishWithResult:completion.cancellationResult];
+        [alert dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
@@ -208,25 +271,6 @@ initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completi
     if( self.DSUIDelegate
        && [self.DSUIDelegate respondsToSelector:@selector(webView:commitPreviewingViewController:)]){
         return [self.DSUIDelegate webView:webView commitPreviewingViewController:previewingViewController];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(dialogType==1 && alertHandler){
-        alertHandler();
-        alertHandler=nil;
-    }else if(dialogType==2 && confirmHandler){
-        confirmHandler(buttonIndex==1?YES:NO);
-        confirmHandler=nil;
-    }else if(dialogType==3 && promptHandler && txtName) {
-        if(buttonIndex==1){
-            promptHandler([txtName text]);
-        }else{
-            promptHandler(@"");
-        }
-        promptHandler=nil;
-        txtName=nil;
     }
 }
 
